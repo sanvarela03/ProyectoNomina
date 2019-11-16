@@ -33,21 +33,21 @@
 			 <th>Cargo</th>
 			 <th>Sueldo Basico</th>
 		 	</tr>
-		 	
+			
 		 	<%
 		 		IEmpleadoDao em = new EmpleadoDaoImpl();
 		 		for(Empleado e : em.obtenerEmpleados()) {
 		 	%>
 		 	<tr>
-		 		<td><% e.getIdentificacion(); %> </td>
-		 		<td><% e.getNombre();%></td>
-		 		<td><% e.getCargo(); %> </td>
-		 		<td><% e.getSueldoBasico(); %></td>
-		 	</tr>
+		 		<td> <%= e.getIdentificacion()%> </td>
+		 		<td> <%= e.getNombre()%> </td>
+		 		<td> <%= e.getCargo()%> </td>
+		 		<td> <%= e.getSueldoBasico()%> </td>
+			</tr>
 			<%
 		 		}
 			%>
-		
+
 		</table>
 			<br>
 		<a href=".\agregarEmpleado.html">Agregar empleado</a>
