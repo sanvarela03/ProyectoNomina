@@ -13,12 +13,13 @@ import nomina.model.Empleado;
 
 public class EmpleadoDaoImpl implements IEmpleadoDao {
 
+	private final String url = "jdbc:mysql://localhost:3306/nomina?useSSL=false&verifyServerCertificate=true";
+	private final String user = "root";
+	private final String password = "12345678";
+
 	@Override
 	public void crearEmpleado(Empleado empleado) throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/nomina?useSSL=false&verifyServerCertificate=true";
-		String user = "root";
-		String password = "12345678";
 
 		Connection con = DriverManager.getConnection(url, user, password);
 
@@ -38,9 +39,6 @@ public class EmpleadoDaoImpl implements IEmpleadoDao {
 	public Empleado leerEmpleado(String identificacion) throws Exception {
 
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/nomina?useSSL=false&verifyServerCertificate=true";
-		String user = "root";
-		String password = "12345678";
 
 		Connection con = DriverManager.getConnection(url, user, password);
 
@@ -57,22 +55,17 @@ public class EmpleadoDaoImpl implements IEmpleadoDao {
 	@Override
 	public void actualizarEmpleado(Empleado empleado) throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/nomina?useSSL=false&verifyServerCertificate=true";
-		String user = "root";
-		String password = "12345678";
 
 		Connection con = DriverManager.getConnection(url, user, password);
-		
 
-		String sql = "UPDATE empleados " 
-				    +"SET nombre = ? , cargo = ? , sueldoBasico = ? "
-				    +"WHERE identificacion = " + empleado.getIdentificacion();
+		String sql = "UPDATE empleados " + "SET nombre = ? , cargo = ? , sueldoBasico = ? " + "WHERE identificacion = "
+				+ empleado.getIdentificacion();
 		PreparedStatement st = con.prepareStatement(sql);
-		
+
 		st.setString(1, empleado.getNombre());
 		st.setString(2, empleado.getCargo());
 		st.setDouble(3, empleado.getSueldoBasico());
-		
+
 		st.executeUpdate();
 		con.close();
 	}
@@ -80,12 +73,9 @@ public class EmpleadoDaoImpl implements IEmpleadoDao {
 	@Override
 	public void borrarEmpleado(String identificacion) throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/nomina?useSSL=false&verifyServerCertificate=true";
-		String user = "root";
-		String password = "12345678";
 
 		Connection con = DriverManager.getConnection(url, user, password);
-		
+
 		String sql = "DELETE FROM empleados WHERE identificacion = ?";
 		PreparedStatement st = con.prepareStatement(sql);
 		st.setString(1, identificacion);
@@ -96,9 +86,6 @@ public class EmpleadoDaoImpl implements IEmpleadoDao {
 	@Override
 	public List<Empleado> obtenerEmpleados() throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
-		String url = "jdbc:mysql://localhost:3306/nomina?useSSL=false&verifyServerCertificate=true";
-		String user = "root";
-		String password = "12345678";
 
 		Connection con = DriverManager.getConnection(url, user, password);
 
