@@ -61,8 +61,6 @@ public class Empleado {
 		this.sueldoBasico = sueldoBasico;
 	}
 	
-	
-	
 	public String getEstado() {
 		return estado;
 	}

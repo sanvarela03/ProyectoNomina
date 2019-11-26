@@ -13,7 +13,7 @@
 		} else if (sw == 1) {
 			pic = "nomina.jsp"
 		} else if (sw == 2) {
-			pic = "reporte.html"
+			pic = "reporte.jsp"
 		}
 		document.getElementById('centro').src = pic;
 	}
