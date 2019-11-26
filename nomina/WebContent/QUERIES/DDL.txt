@@ -1,0 +1,30 @@
+create table empleados(
+	identificacion varchar(20),
+    nombre varchar(20),
+    cargo varchar(20),
+    sueldoBasico double, 
+    estado varchar(20),
+    primary key (identificacion) 
+);
+create table devengados(
+	idDevengado int auto_increment not null,
+    identificacionEmpleado varchar(20), 
+    auxilioTransporte double,
+    horasExtra double,
+    bonificaciones double,
+    comisiones double,
+	primary key (idDevengado), 
+    foreign key (identificacionEmpleado) references empleados (identificacion) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+create table descuentos(
+	idDescuento int auto_increment not null,
+    identificacionEmpleado varchar(20),
+    salud double,
+    pension double,
+    prestamos double,
+    embargos double,
+    fondoEmpleados double,
+	primary key (idDescuento),
+    foreign key (identificacionEmpleado) references empleados (identificacion) 	ON DELETE CASCADE ON UPDATE CASCADE
+);
