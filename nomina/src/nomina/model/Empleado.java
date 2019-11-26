@@ -8,6 +8,7 @@ public class Empleado {
 	private String nombre;
 	private String cargo;
 	private double sueldoBasico;
+	private String estado;
 
 	/**
 	 * Constructores
@@ -60,6 +61,14 @@ public class Empleado {
 		this.sueldoBasico = sueldoBasico;
 	}
 	
+	
+	
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	//Metodos
 	@Override
 	public String toString() {
@@ -67,4 +76,29 @@ public class Empleado {
 				+ ", sueldoBasico=" + sueldoBasico + "]";
 	}
 	
+	//HORAS EXTRAS
+	public double recargoNocturno(double horas) {
+		double valorHora = this.sueldoBasico/240;
+		return valorHora*1.35*horas;
+	}
+	public double extraDiurna(double horas) {
+		double valorHora = this.sueldoBasico/240;
+		return valorHora*1.25*horas;
+	}
+	public double extraNocturna(double horas) {
+		double valorHora = this.sueldoBasico/240;
+		return valorHora*1.75*horas;
+	}
+	public double extraFestivo(double horas) {
+		double valorHora = this.sueldoBasico/240;
+		return valorHora*1.75*horas;
+	}
+	public double extraDiurnaFestivo(double horas) {
+		double valorHora = this.sueldoBasico/240;
+		return valorHora*2.0*horas;
+	}
+	public double extraNocturnaFestivo(double horas) {
+		double valorHora = this.sueldoBasico/240;
+		return valorHora*2.5*horas;
+	}
 }

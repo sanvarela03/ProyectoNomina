@@ -10,11 +10,18 @@ public class Demo {
 		
 		IEmpleadoDao em = new EmpleadoDaoImpl();
 		
-		//System.out.println(em.leerEmpleado("111").toString());
+		
+		
+		System.out.println(em.leerEmpleado("5").toString());
 		
 		//em.crearEmpleado(new Empleado("222", "rodrigo", "serDelicioso", 3000));
 		
-		em.actualizarEmpleado(new Empleado("222", "rodrigo", "serPuto", 3000));
+		Empleado e1 = new Empleado("222", "rodrigo", "serPuto", 3000);
+		
+		e1.setEstado("liquidado");
+		
+		
+		em.actualizarEmpleado(e1);
 		
 		//em.borrarEmpleado("222");
 		for(Empleado e : em.obtenerEmpleados()) {

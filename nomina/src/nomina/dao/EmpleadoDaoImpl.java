@@ -23,7 +23,7 @@ public class EmpleadoDaoImpl implements IEmpleadoDao {
 
 		Connection con = DriverManager.getConnection(url, user, password);
 
-		String sql = "insert into empleados values (?,?,?,?)";
+		String sql = "insert into empleados  (identificacion,nombre,cargo,sueldoBasico) values (? , ? , ? , ?)";
 		PreparedStatement st = con.prepareStatement(sql);
 
 		st.setString(1, empleado.getIdentificacion());
@@ -42,9 +42,10 @@ public class EmpleadoDaoImpl implements IEmpleadoDao {
 
 		Connection con = DriverManager.getConnection(url, user, password);
 
-		Statement st = con.createStatement();
-		String sql = "select * from empleados where identificacion = " + identificacion;
-		ResultSet rs = st.executeQuery(sql);
+		String sql = "select * from empleados where identificacion = ?";
+		PreparedStatement st = con.prepareStatement(sql);
+		st.setString(1, identificacion);
+		ResultSet rs = st.executeQuery();
 		rs.next();
 		Empleado empleado = new Empleado(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDouble(4));
 		rs.close();
@@ -58,13 +59,14 @@ public class EmpleadoDaoImpl implements IEmpleadoDao {
 
 		Connection con = DriverManager.getConnection(url, user, password);
 
-		String sql = "UPDATE empleados " + "SET nombre = ? , cargo = ? , sueldoBasico = ? " + "WHERE identificacion = "
-				+ empleado.getIdentificacion();
+		String sql = "UPDATE empleados SET nombre = ? , cargo = ? , sueldoBasico = ?, estado = ? WHERE identificacion = ?";
 		PreparedStatement st = con.prepareStatement(sql);
 
 		st.setString(1, empleado.getNombre());
 		st.setString(2, empleado.getCargo());
 		st.setDouble(3, empleado.getSueldoBasico());
+		st.setString(4, empleado.getEstado());
+		st.setString(5, empleado.getIdentificacion());
 
 		st.executeUpdate();
 		con.close();
@@ -91,6 +93,53 @@ public class EmpleadoDaoImpl implements IEmpleadoDao {
 
 		Statement st = con.createStatement();
 		String sql = "select * from empleados";
+		ResultSet rs = st.executeQuery(sql);
+
+		List<Empleado> empleados = new ArrayList<Empleado>();
+
+		while (rs.next()) {
+			empleados.add(new Empleado(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDouble(4)));
+		}
+		rs.close();
+		con.close();
+		return empleados;
+	}
+
+	@Override
+	public List<Empleado> obtenerEmpleadosLiquidados() throws Exception {
+		// TODO Auto-generated method stub
+		Class.forName("com.mysql.jdbc.Driver");
+
+		Connection con = DriverManager.getConnection(url, user, password);
+
+		Statement st = con.createStatement();
+
+		String sql = "select * from empleados where estado ='liquidado'";
+
+		ResultSet rs = st.executeQuery(sql);
+
+		List<Empleado> empleados = new ArrayList<Empleado>();
+
+		while (rs.next()) {
+			empleados.add(new Empleado(rs.getString(1), rs.getString(2), rs.getString(3), rs.getDouble(4)));
+		}
+		rs.close();
+		con.close();
+		return empleados;
+	}
+
+	@Override
+	public List<Empleado> obtenerEmpleadosNoLiquidados() throws Exception {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		Class.forName("com.mysql.jdbc.Driver");
+
+		Connection con = DriverManager.getConnection(url, user, password);
+
+		Statement st = con.createStatement();
+
+		String sql = "select * from empleados where estado is null";
+
 		ResultSet rs = st.executeQuery(sql);
 
 		List<Empleado> empleados = new ArrayList<Empleado>();
